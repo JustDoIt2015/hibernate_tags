@@ -9,10 +9,13 @@ import javax.annotation.Resource;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 
 import com.hibernate.tag.dao.TagsDao;
+import com.hibernate.tag.entity.BasicWorkflowEntity;
 import com.hibernate.tag.entity.TagsEntity;
+import com.hibernate.tag.entity.TagsWorkflowReflectEntity;
 
 /**
  *
@@ -49,9 +52,6 @@ public class TagsDaoImpl implements TagsDao {
 			}
 			session=null;
 		}
-		
-		
-		
 		return 0;
 	}
 	/* (non-Javadoc)
@@ -103,6 +103,56 @@ public class TagsDaoImpl implements TagsDao {
 			session=null;
 		}
 		return list;
+	}
+	/* (non-Javadoc)
+	 * @see com.hibernate.tag.dao.TagsDao#getBasicWorkflowEntityListByTags(java.lang.String)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<BasicWorkflowEntity> getBasicWorkflowEntityListByTags(
+			String tableName, String idSql) throws Exception {
+		Session session = null;
+		List<BasicWorkflowEntity> list = null;
+		try {
+			session = sessionFactory.openSession();
+			session.getTransaction().begin();
+			String sql = BasicWorkflowEntity.getQuerySQL(tableName, idSql);	
+			list = session.createSQLQuery(sql).setResultTransformer(Transformers.aliasToBean(BasicWorkflowEntity.class)).list();			
+			session.getTransaction().commit();		
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(session!=null) {
+				session.close();
+			}
+			session=null;
+		}
+		
+		
+		return list;
+	}
+	/* (non-Javadoc)
+	 * @see com.hibernate.tag.dao.TagsDao#addTags(com.hibernate.tag.entity.TagsWorkflowReflectEntity)
+	 */
+	public int addTags(TagsWorkflowReflectEntity entity) throws Exception {
+		Session session = null;
+		try {
+			session = sessionFactory.openSession();
+			session.getTransaction().begin();
+			session.save(entity);		
+			session.getTransaction().commit();		
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(session!=null) {
+				session.close();
+			}
+			session=null;
+		}
+		return 0;
 	}
 
 }

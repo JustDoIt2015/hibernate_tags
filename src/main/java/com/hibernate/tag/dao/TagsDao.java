@@ -5,7 +5,9 @@ package com.hibernate.tag.dao;
 
 import java.util.List;
 
+import com.hibernate.tag.entity.BasicWorkflowEntity;
 import com.hibernate.tag.entity.TagsEntity;
+import com.hibernate.tag.entity.TagsWorkflowReflectEntity;
 
 /**
  *
@@ -21,7 +23,11 @@ public interface TagsDao {
 
 	public int addTags(TagsEntity tags) throws Exception;
 	
+	public int addTags(TagsWorkflowReflectEntity entity) throws Exception;
+	
 	public TagsEntity getTagsEntityById(int id) throws Exception;
 
 	public List<TagsEntity> getTagsListAll() throws Exception;
+	
+	public List<BasicWorkflowEntity> getBasicWorkflowEntityListByTags(String tableName, String idSql) throws Exception;
 }
