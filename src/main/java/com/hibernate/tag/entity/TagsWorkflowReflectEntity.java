@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.hibernate.tag.entity;
 
 import javax.persistence.CascadeType;
