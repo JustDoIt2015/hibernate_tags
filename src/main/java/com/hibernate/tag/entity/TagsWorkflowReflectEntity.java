@@ -7,16 +7,16 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  *
@@ -29,16 +29,18 @@ import org.hibernate.annotations.LazyCollectionOption;
  *
  */
 @Entity
-@Table(name="tb_tags_workflow")
+@Table(name="tb_tags_workflow", indexes={@Index(columnList="uuid",name="uuid")})
 @Cache(usage=CacheConcurrencyStrategy.READ_ONLY, region="javaClassName")
 public class TagsWorkflowReflectEntity {
-
+	
+	
+	private int id;
 	
 	private String uuid;
 	
 	private TagsEntity tags;
 
-	@Id
+
 	@Column(length=40)
 	public String getUuid() {
 		return uuid;
@@ -57,5 +59,17 @@ public class TagsWorkflowReflectEntity {
 
 	public void setTags(TagsEntity tags) {
 		this.tags = tags;
+	}
+
+	@Id
+	@GeneratedValue(generator="paymentableGenerator")
+	@GenericGenerator(name = "paymentableGenerator", strategy = "native")
+	@Column(name="id")
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

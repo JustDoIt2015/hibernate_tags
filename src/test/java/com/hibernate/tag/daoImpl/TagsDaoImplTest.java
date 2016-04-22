@@ -40,10 +40,10 @@ public class TagsDaoImplTest {
 	public void testAddTags() {
 		TagsEntity tags = new TagsEntity();
 		//tags.setId(1);
-		tags.setName("固定资产_1");
+		tags.setName("固定资产_2");
 		tags.setType(3);
 		
-		Set<TagsWorkflowReflectEntity> tagsSet = new HashSet<TagsWorkflowReflectEntity>();
+		//Set<TagsWorkflowReflectEntity> tagsSet = new HashSet<TagsWorkflowReflectEntity>();
 		
 		TagsWorkflowReflectEntity entity1 = new TagsWorkflowReflectEntity();
 		entity1.setUuid("06BC88C161464E13A1CA5AF18779F912");
@@ -54,9 +54,9 @@ public class TagsDaoImplTest {
 		TagsWorkflowReflectEntity entity2 = new TagsWorkflowReflectEntity();
 		entity2.setUuid("2B5B52F937FF4B55BA88E754CF4A7EF9");
 		tagsSet.add(entity1);
-		tagsSet.add(entity2);*/
+		tagsSet.add(entity2);
 		tagsSet.add(entity1);	
-		tags.setSet(tagsSet);
+		tags.setSet(tagsSet);*/
 		
 		try {
 			tagsDao.addTags(entity1);
